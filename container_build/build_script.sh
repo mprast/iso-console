@@ -39,4 +39,6 @@ popd > /dev/null
 vblog "Copying all of $repo_dir into the image in .acbuild..."
 cp -r $repo_dir ./.acbuild/currentaci/rootfs/src
 
+acbuild --debug set-exec -- /usr/local/bin/node -- /src/basic_server.js 
+
 acbuild --debug write '/home/mprast/icbuild_test.aci'
