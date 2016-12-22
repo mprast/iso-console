@@ -1,0 +1,12 @@
+{
+  "name": "iso_console",
+  "version": "1.0.0",
+  "description": "iso's frontend console",
+  "main": "index.js",
+  "repository": "git@github.com:mprast/iso_console.git",
+  "author": "Matt Prast <mprast@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
