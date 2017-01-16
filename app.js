@@ -1,3 +1,9 @@
+// node won't set the module search path to anything 
+// but 'node-modules'. I know...weird. app-module-path
+// lets us add the root app path to the search path so we 
+// don't need '../' all over our code.
+require('app-module-path').addPath(__dirname);
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -45,5 +51,5 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 app.listen(3000, function(){
-	console.log("I'm listening!");
-})
+	console.log("I'm listening! I'm writing it down!");
+});
