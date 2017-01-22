@@ -1,12 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var path = require('path');
-var message = require('mod_init/split-brain');
+var path = require("path");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log(message);
-  res.sendFile(path.join(__dirname + '/../views/index.html'));
+router.get("/", function(req, res, _next) {
+    res.sendFile(path.join(__dirname + "/../views/index.html"));
 });
 
 module.exports = router;

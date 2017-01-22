@@ -1,1 +1,1 @@
-module.exports = require('split-brain')('Hello BOne');
+module.exports = require("split-brain")("Hello BOne");
