@@ -10,8 +10,8 @@ class Test extends Component {
 
     getTheLazyLoad(doIt){
         if(doIt) {
-            return <SplitBrain.Chunk imports={{"Boldy": "components/boldy.js"}}>
-                      <Boldy/>
+            return <SplitBrain.Chunk imports={{"CssTest": "components/css_test.js"}}>
+                      <CssTest/>
                    </SplitBrain.Chunk>;
         }
     }
