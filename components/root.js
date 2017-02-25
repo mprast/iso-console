@@ -3,7 +3,9 @@ import traverse from "react-traverse";
 import { createStore } from "redux";
 import { Provider, connect } from "react-redux";
 import { render } from "react-dom";
-import TestC1 from "components/testc1.js";
+import Node from "components/node";
+import * as d3h from "d3-hierarchy";
+
 // import {Motion, spring} from "react-motion";
 // import { Container, Row, Col } from "react-grid-system";
 // import styles from "./root.css";
@@ -74,7 +76,26 @@ var bestReducer = (state = {}, action) => {
     }
 };
 
-var bestStore = createStore(bestReducer, {"bazinga": "bazinga!!!"});
+var defaultState = {
+    "name": "nodeOne",
+     "children": [
+        {
+         "name": "bodeTwo", 
+         "children": [
+            {
+                "name": "guh-godus!",
+                "children": []
+            }  
+          ]
+        },
+       {
+        "name": "bodeThree",
+        "children": []
+       }
+     ]
+};
+
+var bestStore = createStore(bestReducer, defaultState);
 
 const replaceStrongsWithEms = (node) => traverse(node, {
     DOMElement(path) {
@@ -93,8 +114,76 @@ const replaceStrongsWithEms = (node) => traverse(node, {
     },
 });
 
+const project = (angle, radius, boxSize) => {
+    const center = boxSize / 2;
+    const cartesian = [Math.cos(angle) * radius, Math.sin(angle) * radius];
+    const offsets = cartesian.map((coord) => center + coord);
+    // we've calculated the offset from the bottom but we want the 
+    // offset from the top.
+    offsets[1] = boxSize - offsets[1];
+    return offsets;
+};
+
+const injectLayout = (node) => {
+    const d3_hierarchy = traverse(node, {
+        ComponentElement(path){
+            switch(path.node.type){
+            case Node: {
+                var nodeHash = {
+                    "name": path.node.props.name
+                };
+                const children = path.traverseChildren();
+                if(children.length > 0) {
+                    nodeHash = Object.assign(nodeHash, {"children": children});
+                }
+                return nodeHash;
+            }
+            default: {
+                return path.traverseChildren();
+            }
+            }
+        }
+    });
+
+    const d3_node = d3h.hierarchy(d3_hierarchy);
+
+    const tree = d3h.tree().size([360, 500]);
+
+    tree(d3_node);
+
+    const posMap = d3_node.descendants().reduce((acc, val) => {acc[val.data.name] = [val.x, val.y]; return acc;}, {});
+
+    const nodes_with_pos = traverse(node, {
+        ComponentElement(path){
+            switch(path.node.type){
+                case Node: {
+                    const offsets = project(...posMap[path.node.props.name], 1000);
+                    return React.cloneElement(
+                        path.node,
+                        Object.assign(Object.assign({}, path.node.props), {leftOffset: offsets[0], topOffset: offsets[1]}),
+                        ...path.traverseChildren()
+                    );
+                }
+                default: {
+                    return path.traverseChildren();
+                }
+                
+            }
+        } 
+    });
+
+    return nodes_with_pos; 
+};
+
+const filterTree = (node) => {
+    return injectLayout(node);
+};
+
 var Root = (props) => {
-    return replaceStrongsWithEms(<div>{TestC1.constructElement(props)}</div>);
+    return <svg width="1000" height="1000">
+            <rect style={{fillOpacity:0, strokeWidth:5, stroke:"black"}} width="1000" height="1000"/>
+            {filterTree(Node.constructElement(props))}
+           </svg>;
 };
 
 function mapStateToProps(state) {
