@@ -3,23 +3,18 @@ import React, { Component } from "react";
 export default class Node extends Component {
     constructor(props) {
         super(props);
+        this.state = {opacity: 0.6};
     }
 
-    static constructElement(props){
-        return <Node key={props.state.name} name={props.state.name}>
-                {
-                    props.state.children.map(function(childState) {
-                        return Node.constructElement(Object.assign(Object.assign({}, props), {state: childState}));
-                    })
-                }             
-               </Node>;
+    static constructElement(nodeProps){
+        return <Node key={nodeProps.name} name={nodeProps.name} dispatch={nodeProps.dispatch}
+            leftOffset={nodeProps.coords[0]} topOffset={nodeProps.coords[1]}/>;
     }
 
     render() {
         return <g>
-                <circle cx={this.props.leftOffset} cy={this.props.topOffset} r={10} stroke="green" fill="white" strokeWidth={3}/>
+                <circle cx={this.props.leftOffset} cy={this.props.topOffset} r={10} stroke="green" fill="green" fillOpacity={this.state.opacity} strokeWidth={3} onMouseOver={() => this.setState({opacity: 0.3})} onMouseOut={() => this.setState({opacity: 0.6})} onClick={() => this.props.dispatch({type: "CHANGE_ROOT", nodename: this.props.name})}/>
                 <text x={this.props.leftOffset + 10} y={this.props.topOffset}>{this.props.name}</text>
-                {React.Children.toArray(this.props.children)}
             </g>;
     }
 }

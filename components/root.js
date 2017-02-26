@@ -4,119 +4,11 @@ import { createStore } from "redux";
 import { Provider, connect } from "react-redux";
 import { render } from "react-dom";
 import Node from "components/node";
-import * as d3h from "d3-hierarchy";
+import * as d3f from "d3-force";
 
-// import {Motion, spring} from "react-motion";
-// import { Container, Row, Col } from "react-grid-system";
-// import styles from "./root.css";
-
-// class Root extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = { doIt: false };
-//     }
-   
-//     componentDidMount() {
-//     }
-
-//     getPos() {
-//         if (this.state.doIt) {
-//             return 800;
-//         } else {
-//             return 0;
-//         }
-//     }
-
-//     getTheLazyDazy() {
-//         if (this.state.doIt) {
-//             return <h1>but I am here too</h1>;
-//         }
-//     }
-
-//     render(){
-//         return <Container fluid={true}> 
-//                   <Row>
-//                     <Col sm={12} className={styles.navBar}>
-//                         <span/>
-//                     </Col>
-//                   </Row>
-//                   <Row>           
-//                     <Col sm={6}> 
-//                         <h1 className={styles.title}>iso</h1>
-//                     </Col>
-//                     <Col sm={6}>
-//                         <TransitionMotion>
-//                             <Motion defaultStyle={{right: 0}} style={{right: spring(this.getPos())}}>
-//                                 {(style) => 
-//                                     <div>
-//                                         <h1 style={Object.assign(style, {position: "relative"})}>mooooooving</h1>
-//                                         {this.getTheLazyDazy()}
-//                                     </div>}
-//                             </Motion>
-//                         </TransitionMotion>
-//                     </Col>
-//                   </Row>
-//                   <Row>
-//                     <Col sm={12}>
-//                         <button type="button" onClick={() => this.setState({doIt: !this.state.doIt})}>Go!!!</button>
-//                     </Col>
-//                   </Row>
-//               </Container>;
-//     }
-// }
-
-var bestReducer = (state = {}, action) => {
-    switch(action.type) {
-    case "DO_IT":
-        return {"bazinga": "mazinga ha got you it says mazinga"};
-    case "DO_NOT_DO_IT":
-        return {"bazinga": "oh jeez oh man oh goddddd"};
-    default:
-        return state;
-    }
-};
-
-var defaultState = {
-    "name": "nodeOne",
-     "children": [
-        {
-         "name": "bodeTwo", 
-         "children": [
-            {
-                "name": "guh-godus!",
-                "children": []
-            }  
-          ]
-        },
-       {
-        "name": "bodeThree",
-        "children": []
-       }
-     ]
-};
-
-var bestStore = createStore(bestReducer, defaultState);
-
-const replaceStrongsWithEms = (node) => traverse(node, {
-    DOMElement(path) {
-        if(path.node.type === "strong") {
-            return React.createElement(
-                    "em",
-                    path.node.props,
-                    ...path.traverseChildren()
-                  );
-        }
-        return React.cloneElement(
-            path.node,
-            path.node.props,
-            ...path.traverseChildren()
-          );
-    },
-});
-
-const project = (angle, radius, boxSize) => {
+const project = (x, y, boxSize) => {
     const center = boxSize / 2;
-    const cartesian = [Math.cos(angle) * radius, Math.sin(angle) * radius];
+    const cartesian = [x, y];
     const offsets = cartesian.map((coord) => center + coord);
     // we've calculated the offset from the bottom but we want the 
     // offset from the top.
@@ -124,66 +16,129 @@ const project = (angle, radius, boxSize) => {
     return offsets;
 };
 
-const injectLayout = (node) => {
-    const d3_hierarchy = traverse(node, {
-        ComponentElement(path){
-            switch(path.node.type){
-            case Node: {
-                var nodeHash = {
-                    "name": path.node.props.name
-                };
-                const children = path.traverseChildren();
-                if(children.length > 0) {
-                    nodeHash = Object.assign(nodeHash, {"children": children});
-                }
-                return nodeHash;
-            }
-            default: {
-                return path.traverseChildren();
-            }
-            }
-        }
-    });
+var bestReducer = (state = {}, action) => {
+    var retState = state;
+    var node = null;
+    var nIndex = -1;
+    switch(action.type) {
+    case "CHANGE_ROOT":
+        nIndex = retState.nodes.findIndex((n) => {return n.name == action.nodename;});
+        retState.nodes.forEach((n) => {n.root = false;});
+        retState.nodes[nIndex].root = true;
+        break;
+    default:
+        break;
+    }
 
-    const d3_node = d3h.hierarchy(d3_hierarchy);
-
-    const tree = d3h.tree().size([360, 500]);
-
-    tree(d3_node);
-
-    const posMap = d3_node.descendants().reduce((acc, val) => {acc[val.data.name] = [val.x, val.y]; return acc;}, {});
-
-    const nodes_with_pos = traverse(node, {
-        ComponentElement(path){
-            switch(path.node.type){
-                case Node: {
-                    const offsets = project(...posMap[path.node.props.name], 1000);
-                    return React.cloneElement(
-                        path.node,
-                        Object.assign(Object.assign({}, path.node.props), {leftOffset: offsets[0], topOffset: offsets[1]}),
-                        ...path.traverseChildren()
-                    );
-                }
-                default: {
-                    return path.traverseChildren();
-                }
-                
-            }
-        } 
-    });
-
-    return nodes_with_pos; 
+    var thing = calcLayout(retState);
+    return thing;
 };
 
-const filterTree = (node) => {
-    return injectLayout(node);
+var calcLayout = (state = {}) => {
+    var index = -1;
+    const d3_nodes = state.nodes.map(function(node) {
+         index++;
+         const dNode = {
+             index: index,
+             x: node.coords[0],
+             y: node.coords[1]
+         };
+         if(node.root == true) {
+            dNode.x = 0;
+            dNode.y = 0;
+            dNode.fx = 0;
+            dNode.fy = 0;
+         }
+        return dNode;
+    });
+
+
+    index = -1;
+    const d3_edges = state.nodes.reduce(function(acc, node) {
+        index++;
+        return acc.concat( node.incidents.map(function(incident) {
+            return {
+                source: index,
+                target: state.nodes.findIndex((incNode) => {return incNode.name == incident;})
+            };
+        }));
+    }, []);
+
+    const simulation = d3f.forceSimulation(d3_nodes)    
+        .force("charge", d3f.forceManyBody().strength(-80))
+        .force("link", d3f.forceLink(d3_edges).distance(200).strength(1).iterations(10))
+        .force("x", d3f.forceX())
+        .force("y", d3f.forceY())
+        .stop();
+
+    for (var i = 0, n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())); i < n; ++i) {
+        simulation.tick();
+    }
+   
+    index = -1;
+    state.nodes = state.nodes.map(function(node){
+        index++;
+        const d3n = d3_nodes.find((n) => {return n.index == index;});
+        node.coords = project(d3n.x, d3n.y, 1000);
+        return node;
+    });
+
+    var newState = {};
+    newState.nodes = state.nodes;
+    return newState;
+};
+
+var defaultState = {
+    "nodes":
+    [
+        {
+            "name": "nodeOne",
+            "root": false,
+            "incidents": [],
+            "coords": [0, 0]
+        },
+        {
+            "name": "bodeTwo",
+            "root": false,
+            "incidents": [],
+            "coords": [0, 0]
+        },
+        {
+            "name": "bodeThree",
+            "root": true,
+            "incidents": ["nodeOne", "bodeTwo"],
+            "coords": [0, 0]
+        },
+        {
+            "name": "guh-godus!",
+            "root": false,
+            "incidents": ["bodeThree"],
+            "coords": [0, 0]
+        }
+    ]
+};
+
+var bestStore = createStore(bestReducer, defaultState);
+
+const injectMotion = (state, rootNode) => {
+    return rootNode;
+};
+
+const filterTree = (state, rootNode) => {
+    return injectMotion(state, rootNode);
 };
 
 var Root = (props) => {
-    return <svg width="1000" height="1000">
+    const elTree = <svg width="1000" height="1000">
             <rect style={{fillOpacity:0, strokeWidth:5, stroke:"black"}} width="1000" height="1000"/>
-            {filterTree(Node.constructElement(props))}
+            {
+                props.state.nodes.map(function(nodeProps) {
+                        return Node.constructElement(Object.assign(nodeProps, {dispatch: props.dispatch}));
+                    })
+            }
            </svg>;
+
+    return filterTree(props.state, elTree);
 };
 
 function mapStateToProps(state) {
