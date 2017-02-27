@@ -7,8 +7,7 @@ export default class Node extends Component {
     }
 
     static constructElement(nodeProps){
-        return <Node key={nodeProps.name} name={nodeProps.name} dispatch={nodeProps.dispatch}
-            leftOffset={nodeProps.coords[0]} topOffset={nodeProps.coords[1]}/>;
+        return <Node key={nodeProps.name} name={nodeProps.name} dispatch={nodeProps.dispatch}/>;
     }
 
     render() {

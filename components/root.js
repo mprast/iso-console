@@ -5,6 +5,7 @@ import { Provider, connect } from "react-redux";
 import { render } from "react-dom";
 import Node from "components/node";
 import * as d3f from "d3-force";
+import {Motion, spring} from "react-motion";
 
 const project = (x, y, boxSize) => {
     const center = boxSize / 2;
@@ -64,9 +65,11 @@ var calcLayout = (state = {}) => {
         }));
     }, []);
 
+    // distance_max helps performance a lot! helps produce a ***localized layout***.
+    // we want this.
     const simulation = d3f.forceSimulation(d3_nodes)    
-        .force("charge", d3f.forceManyBody().strength(-80))
-        .force("link", d3f.forceLink(d3_edges).distance(200).strength(1).iterations(10))
+        .force("charge", d3f.forceManyBody().strength(-160))
+        .force("link", d3f.forceLink(d3_edges).distance(200).strength(0.1).iterations(10))
         .force("x", d3f.forceX())
         .force("y", d3f.forceY())
         .stop();
@@ -121,7 +124,29 @@ var defaultState = {
 var bestStore = createStore(bestReducer, defaultState);
 
 const injectMotion = (state, rootNode) => {
-    return rootNode;
+    return traverse(rootNode, {
+        ComponentElement(path){
+            switch(path.node.type){
+            case Node: {
+                const coords = state.nodes.find((n) => {return n.name == path.node.props.name;}).coords;
+                return <Motion style={{x: spring(coords[0]), y: spring(coords[1])}}>
+                    {
+                        (position) => {
+                            return React.cloneElement(
+                                path.node,
+                                Object.assign(Object.assign({}, path.node.props), {leftOffset: position.x, topOffset: position.y}),
+                                ...path.traverseChildren()
+                            );
+                        }
+                    }
+                </Motion>;
+            }
+            default: {
+                return path.traverseChildren();
+            }
+            }
+        }
+    });     
 };
 
 const filterTree = (state, rootNode) => {
