@@ -38,6 +38,10 @@ module.exports = {
 	        {"argsIgnorePattern": "^_",
              "varsIgnorePattern": "React"}
 	    ],
+        "no-var": [
+            "error",
+
+        ],
         "no-console": [
             "off"
         ],
