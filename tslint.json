@@ -1,0 +1,22 @@
+{
+    "extends":["tslint:recommended", "tslint-eslint-rules"],
+    "rules": {
+        "indent": [true, 4],
+        "linebreak-style": [true, "unix"],
+        "quotemark": [true, "double", "avoid-escape"],
+        "semicolon": [true, "always"],
+        /* 
+        the typescript compiler will catch this - we dont 
+        need to check for it in the linter. Plus it will 
+        auto-ignore vars that start with _!
+        "no-unused-vars": [true, {
+                                    "argsIgnorePattern": "^_",
+                                    "varsIgnorePattern": "React"
+                                 }],
+        */
+        "no-var-keyword": true,
+        "array-type": [true, "generic"],
+        "whitespace": false,
+        "ordered-imports": false
+    }
+}
