@@ -4266,10 +4266,6 @@ type-is@~1.6.13:
     media-typer "0.3.0"
     mime-types "~2.1.13"
 
-typed-immutable-record@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/typed-immutable-record/-/typed-immutable-record-0.0.6.tgz#03ac0636a34819144fbcbe0ae2ed9abf6c19a908"
-
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"

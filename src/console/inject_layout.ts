@@ -1,4 +1,4 @@
-import { IsoState, ImmutableRecord } from "src/redux/state_types";
+import { IsoState } from "src/redux/state_types";
 
 function injectLayout(state: IsoState) {
     const nodes = state.console.nodes;
@@ -19,10 +19,10 @@ function injectLayout(state: IsoState) {
         }
 
         return dNode;
-    }).toJS();
+    });
 
     let d3EdgeIndex = -1;
-    const d3Edges = nodes.reduce((_acc, _node) => {
+    const d3Edges = nodes.reduce((_acc: any, _node) => {
         const acc = _acc!;
         const node = _node!;
 
@@ -33,8 +33,10 @@ function injectLayout(state: IsoState) {
                     return incNode!.name === incidentEdge;
                 }),
             };
-        }).toJS();
+        });
 
         return acc.concat(edgesFromNode);
     }, []);
+   
+
 }
