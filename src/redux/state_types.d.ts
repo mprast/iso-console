@@ -10,7 +10,7 @@ export interface IsoState {
 // this takes out the boilerplate of declaring a new interface every
 // time you want to define a type for an Immutable.js record. Now
 // the type of your record is just ImmutableRecord<T>.
-type ImmutableRecord<T> = IRecordWithoutType<T> & T;
+export type ImmutableRecord<T> = IRecordWithoutType<T> & T;
 interface IRecordWithoutType<T> extends TypedRecord<ImmutableRecord<T>> {
 }
 

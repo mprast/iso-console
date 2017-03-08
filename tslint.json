@@ -17,6 +17,7 @@
         "no-var-keyword": true,
         "array-type": [true, "generic"],
         "whitespace": false,
-        "ordered-imports": false
+        "ordered-imports": false,
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
     }
 }
