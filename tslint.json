@@ -16,8 +16,10 @@
         */
         "no-var-keyword": true,
         "array-type": [true, "generic"],
+        "variable-name": [true, "ban-keywords", "allow-leading-underscore", "check-format"],
         "whitespace": false,
         "ordered-imports": false,
-        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+        "object-literal-sort-keys": false,
+        "forin": false
     }
 }
