@@ -1,6 +1,10 @@
 import {buildTest} from "test/redux/value_objects/test_value_object";
 import {ErrorsAsserter} from "test/helpers/assertion_helpers";
 
+// declare jest-imported globals so we don't
+// get errors from typescript
+declare let test;
+
 let TEST_OBJ = {
     test1: "a test value",
     test2: true,
