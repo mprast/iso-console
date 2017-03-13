@@ -18,6 +18,7 @@
         "array-type": [true, "generic"],
         "variable-name": [true, "ban-keywords", "allow-leading-underscore", "check-format"],
         "whitespace": false,
+        "prefer-for-of": true,
         "ordered-imports": false,
         "object-literal-sort-keys": false,
         "forin": false
