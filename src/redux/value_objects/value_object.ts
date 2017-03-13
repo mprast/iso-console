@@ -50,4 +50,4 @@ export function addProxy<T extends ValueObjectInternal<any>>(internalObj: T) {
 // any properties you want. using the type is a way of ensuring
 // that you'll only change the value in a specific way in the
 // method body.
-export type Mask<T extends ValueObject<any>, U> = (T | U) & T["object"];
+export type Mask<T extends ValueObject<any>, U> = U & T["object"];
