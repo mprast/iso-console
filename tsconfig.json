@@ -2,6 +2,8 @@
   "compilerOptions": {
       "strictNullChecks": true,
       "noImplicitReturns": true,
+      "noImplicitAny": true,
+      "suppressImplicitAnyIndexErrors": true,
       "target": "es6",
       "module": "commonjs",
       "baseUrl": "."
