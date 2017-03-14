@@ -5,7 +5,7 @@ export class ValueObjectInternal<T extends {}>{
         this.object = contents;
     }
 
-    public isValid?(): boolean {
+    public isValid(): boolean {
         // this should be computed based on this.object
         return true;
     }

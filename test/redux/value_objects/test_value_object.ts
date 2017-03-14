@@ -15,8 +15,8 @@ type TestObj = {
     },
 };
 
-class TestInternal extends ValueObjectInternal<TestObj> {
-    public setTest1(thing) {
+export class TestInternal extends ValueObjectInternal<TestObj> {
+    public setTest1(thing: string) {
         this.object.test1 = thing;
     }
 }
