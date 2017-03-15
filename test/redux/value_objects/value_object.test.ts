@@ -53,6 +53,12 @@ test("value objects can give back the wrapped object", () => {
     expect(testValueObj.toJS()).toEqual(TEST_OBJ);
 });
 
+test("toJS() deeply clones the wrapped object before returning", () => {
+    const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
+    expect(testValueObj.toJS() !== TEST_OBJ &&
+           testValueObj.toJS().testNested !== TEST_OBJ.testNested).toBe(true);
+});
+
 test("getObject() should be inaccessible", () => {
     const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
     expect(() => {

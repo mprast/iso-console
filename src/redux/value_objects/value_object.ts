@@ -1,4 +1,5 @@
 import {ReadonlyRecursive} from "src/util/types";
+import * as _ from "lodash";
 
 export class ValueObjectInternal<T extends {}>{
     // never assigned to; only exists to set up the type
@@ -19,7 +20,7 @@ export class ValueObjectInternal<T extends {}>{
     }
 
     public toJS(): T {
-        return this.object;
+        return _.cloneDeep(this.object);
     }
 
     // this method should _only_ be visible
