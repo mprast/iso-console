@@ -53,5 +53,12 @@ test("value objects can give back the wrapped object", () => {
     expect(testValueObj.toJS()).toEqual(TEST_OBJ);
 });
 
+test("getObject() should be inaccessible", () => {
+    const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
+    expect(() => {
+        testValueObj.getObj();
+    }).toThrow();
+});
+
 // Mask<T, U> is enforced by the typescript compiler, so
 // we can't write a unit test for it.

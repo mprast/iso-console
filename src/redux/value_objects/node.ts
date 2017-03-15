@@ -22,6 +22,6 @@ class NodeInternal extends ValueObjectInternal<NodeObj> {
     }
 
     public addEdgesTo(target: Node) {
-        this.object.incidents.push(target.object.name);
+        this.object.incidents.push(target.name);
     }
 }
