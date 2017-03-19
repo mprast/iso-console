@@ -15,8 +15,6 @@ let TEST_OBJ = {
     },
 };
 
-// can't test that properties are writable; that's handled
-// by the typescript checker
 test("object properties are all readable", () => {
     const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
     const ea = new ErrorsAsserter();
@@ -34,7 +32,7 @@ test("object properties are all readable", () => {
     ea.assertNoErrors();
 });
 
-test("object properties are writable via test methods", () => {
+test("object properties are writable via setter methods", () => {
     const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
     const newVal: string = "an updated test value";
 
