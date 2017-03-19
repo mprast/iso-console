@@ -43,42 +43,5 @@ export class ValueObjectInternal<T extends {}>{
     // of the value object. using ReadonlyRecursive here 
     // ensures that the whole object hierarchy is readonly.
     public objectType: ReadonlyRecursive<T>;
-
-    protected object: T;
-
-    ...
-
-    // this method should _only_ be visible to the proxy. 
-    // we can terminate calls to it within the proxy itself 
-    // for now.
-    public getObj() {
-        return this.object;    
-    }
 }
-```
-
-```typescript
-export type ValueObject<T extends ValueObjectInternal<any>> = T & T["objectType"];
-```
-
-```typescript
-export function addProxy<T extends ValueObjectInternal<any>>(internalObj: T) {
-    return new Proxy(internalObj, {
-        // in a nutshell - forward any properties not implemented on the
-        // value object itself to the wrapped object. throw when someone
-        // tries to access getObj, since that should only be visible to
-        // the Proxy itself.
-        get: (target, property, _receiver) => {
-            if (property === "getObj") {
-               throw new ReferenceError("Please don't access getObj() directly; " +
-                   "it's only for internal use. You can access all the properties of " +
-                   "the wrapped object directly on the ValueObject itself.");
-            }
-
-            if (property in target) {
-                return target[property];
-            }
-            // ideally TypeScript should keep us from ever getting here, but
-            // just in case...
-            if (!(target.getObj().hasOwnProperty(property))) {
 ```

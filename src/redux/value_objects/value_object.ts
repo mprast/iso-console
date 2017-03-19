@@ -1,12 +1,9 @@
-import {ReadonlyRecursive} from "src/util/types";
 import * as _ from "lodash";
 
 export class ValueObjectInternal<T extends {}>{
     // never assigned to; only exists to set up the type
-    // of the value object. using ReadonlyRecursive
-    // here ensures that the whole object hierarchy is
-    // readonly.
-    public objectType: ReadonlyRecursive<T>;
+    // of the value object.
+    public objectType: T;
 
     protected object: T;
 
@@ -80,4 +77,4 @@ export function addProxy<T extends ValueObjectInternal<any>>(internalObj: T) {
 // any properties you want. using the type is a way of ensuring
 // that you'll only change the value in a specific way in the
 // method body.
-export type Mask<T extends ValueObject<any>, U> = U & T["object"];
+export type Mask<T extends ValueObject<any>, U> = U & T["objectType"];
