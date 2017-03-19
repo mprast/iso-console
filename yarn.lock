@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/d3-force@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/d3-force/-/d3-force-1.0.6.tgz#cadf5c5591e5d554c93ddb1c359d2b0daa83abca"
+
 "@types/lodash@^4.14.55":
   version "4.14.55"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.55.tgz#75d7d4eba020ee4103d4cbd0f2a3ef5db8f7534f"
