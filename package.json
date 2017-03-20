@@ -37,6 +37,7 @@
     "eslint-plugin-jsx": "^0.0.2",
     "eslint-plugin-react": "^6.9.0",
     "jest": "^19.0.2",
+    "jest-environment-node-debug": "^2.0.0",
     "style-loader": "^0.13.1",
     "tslint": "^4.5.1",
     "tslint-eslint-rules": "^3.4.0",
@@ -80,13 +81,15 @@
       "babel-loader. See webpack.config.js.",
       "",
       "NODE_PATH=. is necessary on our jest steps so that we can require modules using ",
-      "absolute paths (we've set the same thing up in Node, see the top of app.js)"
+      "absolute paths (we've set the same thing up in Node, see the top of app.js)",
+      "--env jest-environment-node-debug is necessary for devtools to pick up 'debugger;' statements",
+      "in our tests (see https://github.com/facebook/jest/issues/1652#issuecomment-265423666)."
     ],
     "build": "yarn run webpack",
     "start": "node app.js",
     "go": "yarn build && yarn start",
     "test": "NODE_PATH=. yarn jest",
-    "testd": "NODE_PATH=. node debug node_modules/.bin/jest -i"
+    "testd": "NODE_PATH=. node --inspect --debug-brk node_modules/.bin/jest --runInBand --env jest-environment-node-debug"
   },
   "jest": {
     "moduleFileExtensions": [
