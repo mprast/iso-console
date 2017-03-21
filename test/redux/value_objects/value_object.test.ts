@@ -24,7 +24,7 @@ test("object properties are all readable", () => {
             ea.push(`'${prop} in testValueObj' is false.`);
         } else if (testValueObj[prop] !== TEST_OBJ[prop]) {
             const msg = `'valueObject.${prop}' is ${testValueObj[prop]}, but ` +
-                `'wrappedObject.${prop}' is ${TEST_OBJ[prop]}`;
+                `'object.${prop}' is ${TEST_OBJ[prop]}`;
             ea.push(msg);
         }
     }
@@ -44,24 +44,6 @@ test("object properties are writable via setter methods", () => {
 test("default isValid? always returns true", () => {
     const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
     expect(testValueObj.isValid()).toBe(true);
-});
-
-test("value objects can give back the wrapped object", () => {
-    const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
-    expect(testValueObj.toJS()).toEqual(TEST_OBJ);
-});
-
-test("toJS() deeply clones the wrapped object before returning", () => {
-    const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
-    expect(testValueObj.toJS() !== TEST_OBJ &&
-           testValueObj.toJS().testNested !== TEST_OBJ.testNested).toBe(true);
-});
-
-test("getObject() should be inaccessible", () => {
-    const testValueObj = buildTest(Object.assign({}, TEST_OBJ));
-    expect(() => {
-        testValueObj.getObj();
-    }).toThrow();
 });
 
 // Mask<T, U> is enforced by the typescript compiler, so

@@ -1,12 +1,18 @@
-import {ValueObject, ValueObjectInternal, addProxy, Mask} from "src/redux/value_objects/value_object";
+import {ValueObject, buildValueObject} from "src/redux/value_objects/value_object";
 
-export function buildTest(obj: TestObj) {
-    return addProxy(new TestInternal(obj));
+function setTest1(thing: string): void {
+    this.test1 = thing;
 }
 
-export type Test = ValueObject<TestInternal>;
+export function buildTest(object: TestObject) {
+    const newObject: any = buildValueObject(object);
+    newObject.setTest1 = setTest1.bind(object);
+    return newObject as Test;
+}
 
-type TestObj = {
+export type Test = ValueObject<TestObject> & {setTest1: (thing: string) => void};
+
+type TestObject = {
     test1: string,
     test2: boolean,
     testNested: {
@@ -14,9 +20,3 @@ type TestObj = {
         test2: number,
     },
 };
-
-export class TestInternal extends ValueObjectInternal<TestObj> {
-    public setTest1(thing: string) {
-        this.object.test1 = thing;
-    }
-}

@@ -1,12 +1,27 @@
-import {ValueObject, ValueObjectInternal, addProxy, Mask} from "src/redux/value_objects/value_object";
+import {ValueObject, buildValueObject, Mask} from "src/redux/value_objects/value_object";
 
-export function buildNode(obj: NodeObj) {
-    return addProxy(new NodeInternal(obj));
+function setCoords(coords: NodeObject["coords"]): void {
+    this.coords = coords;
 }
 
-export type Node = ValueObject<NodeInternal>;
+function addEdgesTo(target: Node): void {
+    this.incidents.push(target.name);
+}
 
-type NodeObj = {
+export function buildNode(object: NodeObject): Node {
+    const newObject: any = buildValueObject(object);
+    newObject.setCoords = setCoords.bind(object);
+    newObject.addEdgesTo = addEdgesTo.bind(object);
+    return newObject as Node;
+};
+
+export type Node = ValueObject<NodeObject> &
+{
+    setCoords: (coords: NodeObject["coords"]) => void,
+    addEdgesTo: (target: Node) => void,
+};
+
+export type NodeObject = {
     name: string,
     isRoot: boolean,
     incidents: Array<string>,
@@ -15,13 +30,3 @@ type NodeObj = {
         y: number,
     },
 };
-
-class NodeInternal extends ValueObjectInternal<NodeObj> {
-    public setCoords(coords: NodeObj["coords"]) {
-        this.object.coords = coords;
-    }
-
-    public addEdgesTo(target: Node) {
-        this.object.incidents.push(target.name);
-    }
-}
