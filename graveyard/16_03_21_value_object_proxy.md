@@ -2,7 +2,8 @@
 ## Feature Motivation
 ValueObjects needed to have custom methods (definable for each subclass) 
 but also needed to expose every property of the wrapped object. Ideally we 
-wanted to be able to treat a ValueObject as a POJO with custom methods, 
+wanted to be able to treat a ValueObject as a plain 
+javascript object with a couple of extra setters attached, 
 so if we have a value object defined as `let valueobj = buildValueObject({myProp: "myString"});`
 instead of doing `console.log(valueobj.object.myProp);`
 or something similar, we can do `console.log(valueobj.myProp)`. This seems like a 
@@ -12,11 +13,13 @@ above was to wrap the object in an ES6 Proxy.
 
 ## Reason for Deprecation
 ES6 Proxies are a relatively new and specialized feature, and there are some unknowns 
-as to the breadth and quality of support for them in the toolchain (for example, property 
+as to the breadth and quality of support for them in the tools we use to write, debug, and 
+preprocess our code (for example, property 
 access on proxies simply can't be done while debugging in node 6.X: 
 https://github.com/node-inspector/node-inspector/issues/413). More importantly, we were 
-able to solve the problem more simply by bind()-ing the functions we needed to a POJO 
-and assigning them directly. The interface stays exactly the same.
+able to solve the problem more simply by bind()-ing the functions we wanted to a plain object  
+and then assigning them directly to members of that object. The way we interact with the 
+ValueObject stays exactly the same.
 
 ## Possible Resurrection paths
 It may make sense to resurrect this code if we'd like to make property access more 
@@ -26,7 +29,7 @@ to hit the cache every time we try to access a property. For that a Proxy would 
 necessary.
 
 ## Dead Code
-```
+```typescript
 export class ValueObjectInternal<T extends {}>{
     // never assigned to; only exists to set up the type
     // of the value object.
