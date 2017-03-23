@@ -16,7 +16,6 @@ fs.readFile(path.join(__dirname, "..", ".babelrc"), (err, data) => {
 
     // disable the split-brain plugin, since we don't need 
     // code-splitting for tests.
-    debugger;
     const sbIndex = babelrc["plugins"].findIndex((element) => {
         return (Array.isArray(element) && element[0] == "split-brain") ||
             (element == "split-brain");
