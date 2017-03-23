@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/d3-force": "^1.0.6",
     "@types/lodash": "^4.14.55",
+    "@types/react": "^15.0.18",
     "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-plugin-transform-react-jsx": "^6.22.0",
