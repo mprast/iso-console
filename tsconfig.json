@@ -6,6 +6,7 @@
       "suppressImplicitAnyIndexErrors": true,
       "target": "es6",
       "module": "commonjs",
-      "baseUrl": "."
+      "baseUrl": ".",
+      "jsx": "preserve"
     }
 }
