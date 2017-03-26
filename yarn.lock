@@ -10,7 +10,13 @@
   version "4.14.55"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.55.tgz#75d7d4eba020ee4103d4cbd0f2a3ef5db8f7534f"
 
-"@types/react@^15.0.18":
+"@types/react-dom@^0.14.23":
+  version "0.14.23"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.23.tgz#cecfcfad754b4c2765fe5d29b81b301889ad6c2e"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^15.0.18":
   version "15.0.18"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.18.tgz#258b1cda9d9aa875d68d317238c31eefdaa1a557"
 
@@ -1974,9 +1980,9 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express-react-router@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/express-react-router/-/express-react-router-3.0.0.tgz#f244fc9efbc789435d05482992789af271c0fbe0"
+express-react-router@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/express-react-router/-/express-react-router-3.0.2.tgz#8f97b9b83fb0373ca56ce8188abd3d78d08d8566"
   dependencies:
     react-dom "^15.4.1"
 
