@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@types/react-router": "^4.0.1",
     "app-module-path": "^2.2.0",
     "awesome-typescript-loader": "^3.1.2",
     "babel-plugin-split-brain": "file:/src/babel-plugin-split-brain",

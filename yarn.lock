@@ -6,6 +6,10 @@
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@types/d3-force/-/d3-force-1.0.6.tgz#cadf5c5591e5d554c93ddb1c359d2b0daa83abca"
 
+"@types/history@*":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.5.0.tgz#2f5c3aad4fbd00f89e99b83083e354bc5308e307"
+
 "@types/lodash@^4.14.55":
   version "4.14.55"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.55.tgz#75d7d4eba020ee4103d4cbd0f2a3ef5db8f7534f"
@@ -14,6 +18,13 @@
   version "0.14.23"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.23.tgz#cecfcfad754b4c2765fe5d29b81b301889ad6c2e"
   dependencies:
+    "@types/react" "*"
+
+"@types/react-router@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.1.tgz#07423db947a99ef4d09c40db15d6d101d891dcdb"
+  dependencies:
+    "@types/history" "*"
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^15.0.18":
