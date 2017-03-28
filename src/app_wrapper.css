@@ -1,0 +1,13 @@
+.menuBar {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    color: white;
+    background-color: black;
+    line-height: 100px;
+}
+
+.menuBarSpacer {
+    height: 100px;
+    background-color: black;
+}
