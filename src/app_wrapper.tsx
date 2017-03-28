@@ -4,7 +4,6 @@ import * as styles from "src/app_wrapper.css";
 import { Container, Row, Col } from "react-grid-system";
 import { Link } from "react-router-dom";
 
-/*tslint:disable-next-line:variable-name*/
 export class AppWrapper extends Component<any, undefined> {
     public static childContextTypes = {
         serverSideScreenClass: React.PropTypes.oneOf(["xs", "sm", "md", "lg", "xl"]),

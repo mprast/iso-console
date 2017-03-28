@@ -1,3 +1,8 @@
+// declare jest-imported globals so we
+// don't get errors from typescript
+declare let test: any;
+declare let expect: any;
+
 export class ErrorsAsserter {
     private errors: Array<string> = [];
 
