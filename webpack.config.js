@@ -1,9 +1,9 @@
 var path = require("path");
 module.exports = {
-    entry: path.resolve("./components/root.js"),
+    entry: path.resolve("./src/entry_point.tsx"),
     module: {
         loaders: [
-            { test: /\.ts$/, exclude: /node_modules/, loader: "awesome-typescript-loader" },
+            { test: /\.tsx?$/, exclude: /node_modules/, loader: 'awesome-typescript-loader' },
             { 
               test: /\.css$/,
               exclude: /node_modules/,

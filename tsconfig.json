@@ -8,5 +8,9 @@
       "module": "commonjs",
       "baseUrl": ".",
       "jsx": "preserve"
-    }
+  },
+  "awesomeTypescriptLoaderOptions": {
+      "useBabel": true,
+      "useCache": true
+  }
 }
