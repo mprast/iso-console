@@ -2,3 +2,4 @@ node_modules/
 *.swp
 public/javascripts
 test/babelrc_test
+.awcache/
