@@ -45,3 +45,7 @@ export function traverse
             }
         }, headNoFunctions, path);
     }
+
+export function buildPipeline<T extends Function>(head: Function, tail: Array<T>) {
+    return _.flow(..._.concat<Function>([head], tail));
+}
