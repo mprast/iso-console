@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Component } from "react";
+import { addDispatch } from "src/redux/util/add_dispatch";
 import * as styles from "src/console/components/node.css";
 
 type propTypes = {
                     name: String,
                     key: String,
-                    dispatch: (action: {}) => {},
                     leftOffset?: number,
                     topOffset?: number,
                  };
@@ -28,6 +28,7 @@ export class Node extends Component<propTypes, stateTypes> {
                 style={this.state.style}
                 onMouseOver={() => this.setState({style: styles.mousedOver})}
                 onMouseOut={() => this.setState({style: styles.default})}
-                onClick={() => this.props.dispatch(this.cRootAction)}/>;
+                onClick={() => this.context.dispatch(this.cRootAction)}/>;
     }
 }
+addDispatch(Node);

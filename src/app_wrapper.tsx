@@ -10,6 +10,7 @@ export class AppWrapper extends Component<any, undefined> {
         breakpoints: React.PropTypes.arrayOf(React.PropTypes.number),
         containerWidths: React.PropTypes.arrayOf(React.PropTypes.number),
         gutterWidth: React.PropTypes.number,
+        dispatch: React.PropTypes.func,
     };
 
     constructor(props: {}) {
@@ -19,6 +20,8 @@ export class AppWrapper extends Component<any, undefined> {
     // required by react-grid-system or we wouldn't be
     // using it. please don't use getChildContext() to
     // pass things around, here or anywhere else!
+    // **the one other exception is the dispatch function
+    // the components in the tree need to use
     public getChildContext() {
         // 1. we basically don't want container widths
         // 2. we don't want gutter widths (for now we can
@@ -29,6 +32,7 @@ export class AppWrapper extends Component<any, undefined> {
             containerWidths: [9999, 9999, 9999, 9999],
             gutterWidth: 0,
             breakpoints: [0, 0, 0, 1],
+            dispatch: this.props.dispatch,
         };
     }
 
