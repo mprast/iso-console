@@ -155,4 +155,14 @@ describe("buildPipeline", () => {
         const pipeline = stdf.buildPipeline(init, [fA, fB, fC]);
         expect(pipeline()).toEqual(["A", "B", "C"]);
     });
+
+    test("behaves correctly when passed only one function", () => {
+        const fOne = (array: any) => {
+            return _.concat(array, "Just One");
+        };
+
+        const pipeline = stdf.buildPipeline(fOne, []);
+
+        expect(pipeline([])).toEqual(["Just One"]);
+    });
 });
