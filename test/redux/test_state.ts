@@ -48,6 +48,7 @@ export function buildTestState(): IsoState {
             nodes: wrappedNodes,
         },
         admin: {},
+        control: {},
     };
 
     return testState;

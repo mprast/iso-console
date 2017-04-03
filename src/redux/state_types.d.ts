@@ -4,6 +4,7 @@ import {Node} from "src/redux/value_objects/node";
 export interface IsoState {
     console: IsoConsoleState;
     admin: IsoAdminState;
+    control: IsoControlState;
 }
 
 export interface IsoConsoleState {
@@ -11,6 +12,9 @@ export interface IsoConsoleState {
 }
 
 export interface IsoAdminState {
+}
+
+export interface IsoControlState {
 }
 
 // as we need more powerful contracts perhaps we'll
