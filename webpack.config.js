@@ -1,3 +1,5 @@
+var WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
+
 var path = require("path");
 module.exports = {
     entry: path.resolve("./src/entry_point.tsx"),
@@ -19,6 +21,9 @@ module.exports = {
         ],
         extensions: [".ts", ".tsx", ".css", ".js", ".jsx", ".json"]
     },
+    plugins: [
+        new WebpackBundleSizeAnalyzerPlugin('./reports/plain-report.txt')
+    ],
     output: {
         filename: "bundle.js",
         chunkFilename: "[id].bundle.js",
