@@ -4,9 +4,9 @@ import { Mask } from "src/redux/value_objects/value_object";
 import * as d3f from "d3-force";
 import * as _ from "lodash";
 
-export function injectLayout(state: IsoState): IsoState {
+export function injectLayout(state: IsoState["console"]): IsoState["console"] {
     // mutative
-    injectLayoutIntoNodes(state.console.nodes);
+    injectLayoutIntoNodes(state.rootGraph.nodes);
     return state;
 }
 

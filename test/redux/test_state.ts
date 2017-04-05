@@ -1,5 +1,6 @@
 import {IsoState} from "src/redux/state_types";
 import {buildNode} from "src/redux/value_objects/node";
+import {buildGraph} from "src/redux/value_objects/graph";
 
 export function buildTestState(): IsoState {
     const nodes = [
@@ -45,10 +46,11 @@ export function buildTestState(): IsoState {
 
     const testState: IsoState = {
         console: {
-            nodes: wrappedNodes,
+            rootGraph: buildGraph({nodes: wrappedNodes}),
         },
         admin: {},
         control: {},
+        router: undefined,
     };
 
     return testState;

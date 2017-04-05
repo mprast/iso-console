@@ -1,14 +1,16 @@
-import {Node} from "src/redux/value_objects/node";
+import {Graph} from "src/redux/value_objects/graph";
 /// <reference path="react.d.ts" />
 
 export interface IsoState {
     console: IsoConsoleState;
     admin: IsoAdminState;
     control: IsoControlState;
+    // this is handled by react-router-redux
+    router: any;
 }
 
 export interface IsoConsoleState {
-    nodes: Array<Node>;
+    rootGraph: Graph;
 }
 
 export interface IsoAdminState {
