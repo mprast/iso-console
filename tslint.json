@@ -24,6 +24,7 @@
         "forin": false,
         /* this will trigger on all JSX Stateless components 
            and it gets annoying */
-        "variable-name": false
+        "variable-name": false,
+        "one-variable-per-declaration": false
     }
 }
