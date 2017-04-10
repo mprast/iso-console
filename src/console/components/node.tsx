@@ -10,14 +10,14 @@ type propTypes = {
                     topOffset?: number,
                  };
 
-type stateTypes = {style: {}};
+type stateTypes = {cssClass: string};
 
 export class Node extends Component<propTypes, stateTypes> {
     private cRootAction = {type: "CHANGE_ROOT", nodename: this.props.name};
 
     constructor(props: propTypes) {
         super(props);
-        this.state = {style: styles.default};
+        this.state = {cssClass: styles.default};
     }
 
     public render() {
@@ -25,9 +25,9 @@ export class Node extends Component<propTypes, stateTypes> {
                 cx={this.props.leftOffset}
                 cy={this.props.topOffset}
                 r={10}
-                style={this.state.style}
-                onMouseOver={() => this.setState({style: styles.mousedOver})}
-                onMouseOut={() => this.setState({style: styles.default})}
+                className={this.state.cssClass}
+                onMouseOver={() => this.setState({cssClass: styles.mousedOver})}
+                onMouseOut={() => this.setState({cssClass: styles.default})}
                 onClick={() => this.context.dispatch(this.cRootAction)}/>;
     }
 }
