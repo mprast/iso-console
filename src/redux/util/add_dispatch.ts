@@ -7,7 +7,7 @@ import * as React from "react";
 // overloading that component; if it gets much bigger
 // we should split the dispatch stuff out)
 export const addDispatch = (componentClass: any) => {
-    componentClass.prototype.contextTypes = {
+    componentClass.contextTypes = {
         dispatch: React.PropTypes.func,
     };
 };
