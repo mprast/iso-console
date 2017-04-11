@@ -11,7 +11,7 @@ const consolePostUpdatePipeline = buildPipeline(constructComponentTree, [injectM
 
 // we want the console view to fill the viewport
 const Root = (props: {state: IsoState["console"]}) => {
-    return <svg style={{width: "100%", height: "100%"}}> 
+    return <svg style={{width: "100%", height: "100%", position: "absolute"}}> 
     {
         // turns the state tree into the elements we want to map on the svg view
         consolePostUpdatePipeline(props.state)

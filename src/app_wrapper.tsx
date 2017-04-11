@@ -37,27 +37,29 @@ export class AppWrapper extends Component<any, undefined> {
     }
 
     public render() {
-        return <Container>
-            <Row>
-                <Col xl={4}>
-                    <div className={styles.menuBar}>(Logo here)</div>
-                </Col>
-                <Col xl={2}>
-                    <Link to="/console"><div className={styles.menuBar}>Console</div></Link>
-                </Col>
-                <Col xl={2}>
-                    <Link to="/admin">
-                        <div className={styles.menuBar}>Admin</div>
-                    </Link>
-                </Col>
-                <Col xl={4}>
-                    <div className={styles.menuBarSpacer}/>
-                </Col>
-            </Row>
+        return <div>
+            <Container>
+                <Row>
+                    <Col xl={4}>
+                        <div className={styles.menuBar}>(Logo here)</div>
+                    </Col>
+                    <Col xl={2}>
+                        <Link to="/console"><div className={styles.menuBar}>Console</div></Link>
+                    </Col>
+                    <Col xl={2}>
+                        <Link to="/admin">
+                            <div className={styles.menuBar}>Admin</div>
+                        </Link>
+                    </Col>
+                    <Col xl={4}>
+                        <div className={styles.menuBarSpacer}/>
+                    </Col>
+                </Row>
+            </Container>
             {
                 // the children may or may not be using react-grid-system
                 this.props.children
             }
-        </Container>;
+        </div>;
     }
 }
