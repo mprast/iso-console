@@ -68,18 +68,19 @@ export function injectLayoutIntoNodes(
         simulation.tick();
     }
 
-    const projectedD3 = project(d3Nodes);
-
     if (nodes.length !== d3Nodes.length) {
         throw RangeError(`Nodes array is of length ${nodes.length}, node array returned ` +
-                         `by d3 is of length ${d3Nodes.length}`);
+            `by d3 is of length ${d3Nodes.length}`);
     }
 
+    const projectedD3 = project(d3Nodes);
+
     const zipNodes = (node: Mask<Node, {setCoords: Node["setCoords"]}>,
-                    d3Node: {x: number, y: number}) => {
-        node.setCoords(d3Node);
+        d3Node: {x: number, y: number}) => {
+            node.setCoords(d3Node);
     };
-    _.zipWith(nodes, d3Nodes, zipNodes);
+
+    _.zipWith(nodes, projectedD3, zipNodes);
 
     return nodes;
 }

@@ -17,6 +17,8 @@ const nodes = (cs: IsoConsoleState) => {
     return cs.rootGraph.nodes;
 };
 
+// TODO: make the subject the same for all of these
+
 test("node count remains the same", () => {
     // need to build test state twice here since injectLayout mutates
     const initialState = consoleState();
@@ -36,5 +38,19 @@ test("root node should be in the center", () => {
         ea.push(`Root node should be at {${targetX}, ${targetY}}, but is at ` +
             `{${rootNode.coords.x}, ${rootNode.coords.y}}`);
     }
+    ea.assertNoErrors();
+});
+
+test("all coords should be in [0, 1]", () => {
+    const finalState = injectLayout(consoleState());
+    const ea = new ErrorsAsserter();
+    _.each(nodes(finalState), (node) => {
+        if (node.coords.x < 0 || node.coords.x > 1) {
+            ea.push(`Node ${node.name} has bad x coord: ${node.coords.x}.`);
+        }
+        if (node.coords.y < 0 || node.coords.y > 1) {
+            ea.push(`Node ${node.name} has bad y coord: ${node.coords.y}.`);
+        }
+    });
     ea.assertNoErrors();
 });
