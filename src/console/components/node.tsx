@@ -8,6 +8,8 @@ type propTypes = {
                     key: String,
                     leftOffset?: number,
                     topOffset?: number,
+                    graphWidth: number,
+                    graphHeight: number,
                  };
 
 type stateTypes = {cssClass: string};
@@ -21,9 +23,11 @@ export class Node extends Component<propTypes, stateTypes> {
     }
 
     public render() {
+        // implicitly assuming leftOffset and topOffset get set before
+        // we ever try to render the node
         return <circle
-                cx={this.props.leftOffset}
-                cy={this.props.topOffset}
+                cx={this.props.leftOffset! * this.props.graphWidth}
+                cy={this.props.topOffset! * this.props.graphHeight}
                 r={10}
                 className={this.state.cssClass}
                 onMouseOver={() => this.setState({cssClass: styles.mousedOver})}

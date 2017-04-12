@@ -46,7 +46,7 @@ export function buildTestState(): IsoState {
 
     const testState: IsoState = {
         console: {
-            rootGraph: buildGraph({nodes: wrappedNodes}),
+            rootGraph: buildGraph({nodes: wrappedNodes, size: [1000, 1000]}),
         },
         admin: {},
         control: {},

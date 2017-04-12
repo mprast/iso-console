@@ -30,4 +30,5 @@ export type Graph = ValueObject<GraphObject> &
 
 export type GraphObject = {
     nodes: Array<Node>;
+    size: [number, number];
 };
