@@ -15,7 +15,7 @@ type propTypes = {
 type stateTypes = {cssClass: string};
 
 export class Node extends Component<propTypes, stateTypes> {
-    private cRootAction = {type: "CHANGE_ROOT", nodename: this.props.name};
+    private cRootAction = {type: "CHANGE_ROOT", nodeName: this.props.name};
 
     constructor(props: propTypes) {
         super(props);
