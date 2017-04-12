@@ -90,7 +90,7 @@ export function injectLayoutIntoNodes(
 // layout in pixels.
 export function project<T>(nodes: Array<{x: number, y: number} & T>) {
     // square canvas, so size should be greatest of all the coords
-    let boxRadNoPadding = Math.max(..._.flatMap(nodes, (n) => [n.x, n.y]));
+    let boxRadNoPadding = Math.max(..._.flatMap(nodes, (n) => [Math.abs(n.x), Math.abs(n.y)]));
 
     // a zero-size box will screw things up; default to 1
     if (boxRadNoPadding === 0) {
