@@ -15,6 +15,16 @@ module.exports = {
         ]
     },
     resolve: {
+        alias: {
+            // allows us to behave as if we live
+            // in react land; even though we are 
+            // really using Preact behind the 
+            // scenes. The alias extends to 
+            // dependencies (e.g. react-motion) 
+            // as well.
+            "react": "preact-compat",
+            "react-dom": "preact-compat"
+        },
         modules: [
             path.resolve("."),
             "node_modules"
