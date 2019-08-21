@@ -4,6 +4,8 @@
 // don't need '../' all over our code.
 require("app-module-path").addPath(__dirname);
 
+// hello! I'm trying somethingo out
+
 var express = require("express");
 var path = require("path");
 //var favicon = require('serve-favicon');
